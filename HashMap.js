@@ -64,6 +64,11 @@ export default class HashMap{
         return this.length;
     }
 
+    clear(){
+        this.buckets = Array.from({length: capacity}, () => new LinkedList());
+        this.length = 0;
+    }
+
 
 
 
