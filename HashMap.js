@@ -7,6 +7,7 @@ export default class HashMap{
         this.loadFactor = loadFactor;
         this.capacity = capacity;
         this.buckets = Array.from({length: capacity}, () => new LinkedList());
+        this.length = 0;
     }
 
     hash(key) {
@@ -26,6 +27,7 @@ export default class HashMap{
         let keyIndex = this.buckets[bucket].find(key); // index within linked list of key (null if NA)
         if (keyIndex === null){
             this.buckets[bucket].append(key, value);
+            this.length++;
         }else{
             let matchingKeyNode = this.buckets[bucket].at(keyIndex);
             matchingKeyNode.value = value;
@@ -51,7 +53,15 @@ export default class HashMap{
         let hashCode = this.hash(key);
         let bucket = hashCode % this.capacity; 
         let linkedList = this.buckets[bucket];
-        return linkedList.remove(key);
+        let hasKey = linkedList.remove(key);
+        if (hasKey){
+            this.length--;
+        }
+        return hasKey;
+    }
+
+    length(){
+        return this.length;
     }
 
 
