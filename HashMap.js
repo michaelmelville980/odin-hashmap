@@ -1,21 +1,36 @@
+import LinkedList from './LinkedList.js';
+import Node from './Node.js';
+
 export default class HashMap{
 
     constructor(capacity, loadFactor){
-        this.buckets = Array.from({length: capacity}, () => []);
         this.loadFactor = loadFactor;
         this.capacity = capacity;
+        this.buckets = Array.from({length: capacity}, () => new LinkedList());
     }
 
     hash(key) {
-    let hashCode = 0;
-        
-    const primeNumber = 31;
-    for (let i = 0; i < key.length; i++) {
-        hashCode = primeNumber * hashCode + key.charCodeAt(i);
-    }
+        let hashCode = 0;
+            
+        const primeNumber = 31;
+        for (let i = 0; i < key.length; i++) {
+            hashCode = primeNumber * hashCode + key.charCodeAt(i);
+        }
 
-    return hashCode;
+        return hashCode;
     } 
+
+    set(key, value) {
+        let hashCode = this.hash(key);
+        let bucket = hashCode % this.capacity; // correct bucket
+        let keyIndex = this.buckets[bucket].find(key); // index within linked list of key (null if NA)
+        if (keyIndex === null){
+            this.buckets[bucket].append(key, value);
+        }else{
+            let matchingKeyNode = this.buckets[bucket].at(keyIndex);
+            matchingKeyNode.value = value;
+        }
+    }
 
 
 
