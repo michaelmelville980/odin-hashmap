@@ -28,6 +28,9 @@ export default class HashMap{
         if (keyIndex === null){
             this.buckets[bucket].append(key, value);
             this.length++;
+            if (this.length > (loadFactor * capacity)){
+                this.doubleBuckets();
+            }
         }else{
             let matchingKeyNode = this.buckets[bucket].at(keyIndex);
             matchingKeyNode.value = value;
@@ -125,10 +128,5 @@ export default class HashMap{
             this.set(key, value);
         }
     }
-
-
-
-
-
 
 }
