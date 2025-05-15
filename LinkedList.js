@@ -34,6 +34,25 @@ export default class LinkedList{
         this.size++;
     }
 
+    //Removes node from list 
+    remove(key){
+        let keyIndex = this.find(key);
+        let nodeToRemove = this.at(keyIndex);
+        if (this.size === 1){
+            this.head = null;
+            this.tail = null;
+        }else if (nodeToRemove === this.head){
+            nodeToRemove.nextNode = this.head;
+        }else if (nodeToRemove === this.tail){
+            this.pop();
+        }else{
+            let nodeBeforeRemove = this.at(keyIndex - 1);
+            let nodeAfterRemove = this.at(keyIndex + 1);
+            nodeBeforeRemove.nextNode = nodeAfterRemove;
+        }
+        this.size--;
+    }
+
     //Returns size (# of nodes)
     size(){
         return this.size;
