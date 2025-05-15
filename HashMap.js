@@ -32,6 +32,17 @@ export default class HashMap{
         }
     }
 
+    get(key){
+        let hashCode = this.hash(key);
+        let bucket = hashCode % this.capacity; // correct bucket
+        let keyIndex = this.buckets[bucket].find(key); // index within linked list of key (null if NA)
+        let value = null;
+        if (keyIndex !== null){
+            value = this.buckets[bucket].at(keyIndex).value;
+        }
+        return value;
+    }
+
 
 
 
