@@ -115,6 +115,17 @@ export default class HashMap{
 
     }
 
+    doubleBuckets(){
+        let entries = this.entries();
+        this.capacity *= 2;
+        this.clear();
+        for (const entry of entries){
+            let key = entry[0];
+            let value = entry[1];
+            this.set(key, value);
+        }
+    }
+
 
 
 
