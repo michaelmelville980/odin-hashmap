@@ -48,7 +48,10 @@ export default class HashMap{
     }
 
     remove(key){
-        
+        let hashCode = this.hash(key);
+        let bucket = hashCode % this.capacity; 
+        let linkedList = this.buckets[bucket];
+        return linkedList.remove(key);
     }
 
 
