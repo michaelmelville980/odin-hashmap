@@ -43,6 +43,14 @@ export default class HashMap{
         return value;
     }
 
+    has(key){
+        return this.get(key) !== null;
+    }
+
+    remove(key){
+        
+    }
+
 
 
 
