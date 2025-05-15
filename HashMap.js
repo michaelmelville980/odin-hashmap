@@ -1,9 +1,8 @@
 import LinkedList from './LinkedList.js';
-import Node from './Node.js';
 
 export default class HashMap{
 
-    constructor(capacity, loadFactor){
+    constructor(capacity = 16, loadFactor = 0.75){
         this.loadFactor = loadFactor;
         this.capacity = capacity;
         this.buckets = Array.from({length: capacity}, () => new LinkedList());
@@ -28,7 +27,7 @@ export default class HashMap{
         if (keyIndex === null){
             this.buckets[bucket].append(key, value);
             this.length++;
-            if (this.length > (loadFactor * capacity)){
+            if (this.length > (this.loadFactor * this.capacity)){
                 this.doubleBuckets();
             }
         }else{
@@ -68,7 +67,7 @@ export default class HashMap{
     }
 
     clear(){
-        this.buckets = Array.from({length: capacity}, () => new LinkedList());
+        this.buckets = Array.from({length: this.capacity}, () => new LinkedList());
         this.length = 0;
     }
 
@@ -76,8 +75,8 @@ export default class HashMap{
         let keyArray = []
 
         for (const bucket of this.buckets){
-            let currentNode = bucket;
-            for (let i = 0; i < this.size; i++){
+            let currentNode = bucket.head;
+            for (let i = 0; i < bucket.size; i++){
                 keyArray.push(currentNode.key);
                 currentNode = currentNode.nextNode;
             }
@@ -90,8 +89,8 @@ export default class HashMap{
         let valueArray = []
 
         for (const bucket of this.buckets){
-            let currentNode = bucket;
-            for (let i = 0; i < this.size; i++){
+            let currentNode = bucket.head;
+            for (let i = 0; i < bucket.size; i++){
                 valueArray.push(currentNode.value);
                 currentNode = currentNode.nextNode;
             }
@@ -105,8 +104,8 @@ export default class HashMap{
         let entryArray = []
 
         for (const bucket of this.buckets){
-            let currentNode = bucket;
-            for (let i = 0; i < this.size; i++){
+            let currentNode = bucket.head;
+            for (let i = 0; i < bucket.size; i++){
                 let key = currentNode.key;
                 let value = currentNode.value;
                 entryArray.push([key, value]);

@@ -118,13 +118,14 @@ export default class LinkedList{
         let counter = 0;
         let currentNode = this.head;
         let index = null;
-        if (currentNode.key === key){
+        
+        if (currentNode && currentNode.key === key){
             index = counter;
         }
         while (index === null && counter < this.size){
             currentNode = currentNode.nextNode;
             counter++;
-            if (currentNode.key === key){
+            if (currentNode && currentNode.key === key){
                 index = counter;
             }
         }
