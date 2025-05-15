@@ -69,6 +69,52 @@ export default class HashMap{
         this.length = 0;
     }
 
+    keys(){
+        let keyArray = []
+
+        for (const bucket of this.buckets){
+            let currentNode = bucket;
+            for (let i = 0; i < this.size; i++){
+                keyArray.push(currentNode.key);
+                currentNode = currentNode.nextNode;
+            }
+        }
+
+        return keyArray;
+    }
+
+    values(){
+        let valueArray = []
+
+        for (const bucket of this.buckets){
+            let currentNode = bucket;
+            for (let i = 0; i < this.size; i++){
+                valueArray.push(currentNode.value);
+                currentNode = currentNode.nextNode;
+            }
+        }
+
+        return valueArray;
+
+    }
+
+    entries(){
+        let entryArray = []
+
+        for (const bucket of this.buckets){
+            let currentNode = bucket;
+            for (let i = 0; i < this.size; i++){
+                let key = currentNode.key;
+                let value = currentNode.value;
+                entryArray.push([key, value]);
+                currentNode = currentNode.nextNode;
+            }
+        }
+
+        return entryArray;
+
+    }
+
 
 
 
